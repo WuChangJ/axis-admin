@@ -1,0 +1,16 @@
+{
+  "tableHint": "Search + Table + Modal demo with local mock data.",
+  "name": "Name",
+  "status": "Status",
+  "remark": "Remark",
+  "createTime": "Created at",
+  "action": "Actions",
+  "edit": "Edit",
+  "detail": "Detail",
+  "add": "Create",
+  "enabled": "Enabled",
+  "disabled": "Disabled",
+  "formHint": "Demo of Form / Descriptions / Tree / Upload / DictSelect.",
+  "treeTitle": "Sample tree",
+  "uploadHint": "Files are not uploaded to a real server."
+}

@@ -1,0 +1,127 @@
+<script setup lang="ts">
+import { computed, ref, watch } from 'vue'
+import { useRoute, useRouter } from 'vue-router'
+import { useI18n } from 'vue-i18n'
+import type { MenuValue } from 'tdesign-vue-next'
+import { usePermissionStore } from '@/stores/permission'
+import { useSettingsStore } from '@/stores/settings'
+import { appConfig } from '@/config'
+import AppIcon from '@/components/AppIcon/index.vue'
+import type { AppMenu } from '@/router/helper'
+
+const route = useRoute()
+const router = useRouter()
+const { t } = useI18n()
+const permission = usePermissionStore()
+const settings = useSettingsStore()
+
+const active = computed(() => route.path)
+const expanded = ref<MenuValue[]>([])
+
+function submenuPaths(items: AppMenu[], result = new Set<string>()) {
+  items.forEach((item) => {
+    if (item.children?.length) {
+      result.add(item.path)
+      submenuPaths(item.children, result)
+    }
+  })
+  return result
+}
+
+function syncExpandedFromRoute() {
+  const parents = submenuPaths(permission.menus)
+  const matched = route.matched.map((item) => item.path).filter((path) => parents.has(path))
+  expanded.value = Array.from(new Set([...expanded.value, ...matched]))
+}
+
+watch(
+  () => [route.path, permission.menus] as const,
+  () => syncExpandedFromRoute(),
+  { immediate: true },
+)
+
+function onExpand(value: MenuValue[]) {
+  expanded.value = value
+}
+
+function onChange(value: MenuValue) {
+  const path = String(value)
+  if (submenuPaths(permission.menus).has(path)) return
+  void router.push(path)
+}
+
+function hasChildren(item: AppMenu) {
+  return Boolean(item.children?.length)
+}
+</script>
+
+<template>
+  <t-menu
+    :value="active"
+    :expanded="expanded"
+    :collapsed="settings.collapsed"
+    expand-type="normal"
+    theme="light"
+    :width="settings.collapsed ? 64 : 220"
+    @change="onChange"
+    @expand="onExpand"
+  >
+    <template #logo>
+      <div class="sidebar-logo" :class="{ 'sidebar-logo--collapsed': settings.collapsed }">
+        <img class="sidebar-logo__img" :src="appConfig.logo" alt="" />
+        <span v-show="!settings.collapsed" class="sidebar-logo__name">{{ t('common.appName') }}</span>
+      </div>
+    </template>
+    <template v-for="item in permission.menus" :key="item.path">
+      <t-submenu v-if="hasChildren(item)" :value="item.path">
+        <template #icon>
+          <AppIcon v-if="item.icon" :name="item.icon" />
+        </template>
+        <template #title>{{ t(item.title) }}</template>
+        <t-menu-item
+          v-for="child in item.children"
+          :key="child.path"
+          :value="child.path"
+          :to="child.path"
+        >
+          {{ t(child.title) }}
+        </t-menu-item>
+      </t-submenu>
+      <t-menu-item v-else :value="item.path" :to="item.path">
+        <template #icon>
+          <AppIcon v-if="item.icon" :name="item.icon" />
+        </template>
+        {{ t(item.title) }}
+      </t-menu-item>
+    </template>
+  </t-menu>
+</template>
+
+<style scoped>
+.sidebar-logo {
+  height: var(--admin-header-height);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 0 16px;
+  font-weight: 700;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+.sidebar-logo--collapsed {
+  justify-content: center;
+  padding: 0;
+}
+
+.sidebar-logo__img {
+  width: 32px;
+  height: 32px;
+  flex-shrink: 0;
+}
+
+.sidebar-logo__name {
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+</style>

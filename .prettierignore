@@ -1,0 +1,25 @@
+gitignore
+# 依赖
+node_modules/
+pnpm-lock.yaml
+
+# 构建产物
+dist/
+dist-ssr/
+*.local
+
+# 测试覆盖率
+coverage/
+
+# 编辑器/系统文件
+.DS_Store
+.idea/
+.vscode/
+
+# 日志
+*.log
+npm-debug.log*
+pnpm-debug.log*
+
+# TypeScript 增量编译缓存
+*.tsbuildinfo

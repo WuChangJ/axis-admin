@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" href="/logo.svg" type="image/svg+xml" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Axis Admin</title>
+    <style>
+      #app-loading {
+        position: fixed;
+        inset: 0;
+        z-index: 9999;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 16px;
+        background: #fff;
+        font-family: Inter, 'PingFang SC', 'Microsoft YaHei', sans-serif;
+        transition: opacity 0.22s ease;
+      }
+
+      #app-loading.is-hide {
+        opacity: 0;
+        pointer-events: none;
+      }
+
+      #app-loading__name {
+        font-size: 20px;
+        font-weight: 700;
+        color: #0052d9;
+        letter-spacing: 0.04em;
+      }
+
+      #app-loading__mark {
+        position: relative;
+        width: 72px;
+        height: 72px;
+      }
+
+      #app-loading__spin {
+        position: absolute;
+        inset: 0;
+        border: 3px solid #d9e1ff;
+        border-top-color: #0052d9;
+        border-radius: 50%;
+        animation: app-loading-spin 0.8s linear infinite;
+      }
+
+      #app-loading__mark img {
+        position: absolute;
+        inset: 12px;
+        width: 48px;
+        height: 48px;
+      }
+
+      @keyframes app-loading-spin {
+        to {
+          transform: rotate(360deg);
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div id="app-loading">
+      <div id="app-loading__name">Axis Admin</div>
+      <div id="app-loading__mark">
+        <span id="app-loading__spin"></span>
+        <img src="/logo.svg" alt="" />
+      </div>
+    </div>
+    <div id="app"></div>
+    <script type="module" src="/src/main.ts"></script>
+  </body>
+</html>
