@@ -8,6 +8,13 @@ defineOptions({ name: 'ExampleModal' })
 
 const { t } = useI18n()
 const visible = ref(false)
+const confirmLoading = ref(false)
+
+function onConfirm() {
+  window.setTimeout(() => {
+    confirmLoading.value = false
+  }, 800)
+}
 </script>
 
 <template>
@@ -16,7 +23,12 @@ const visible = ref(false)
     <t-card title="AppModal">
       <t-button theme="primary" @click="visible = true">{{ t('example.detail') }}</t-button>
     </t-card>
-    <AppModal v-model:visible="visible" :title="t('example.detail')" @confirm="visible = false">
+    <AppModal
+      v-model:visible="visible"
+      v-model:confirm-loading="confirmLoading"
+      :title="t('example.detail')"
+      @confirm="onConfirm"
+    >
       <p>{{ t('example.name') }}：Demo</p>
     </AppModal>
   </PageContainer>
