@@ -12,11 +12,12 @@ import AppDescriptions from '@/components/AppDescriptions/index.vue'
 import type { FormSchemaItem } from '@/components/AppForm/schema'
 import { useTable } from '@/hooks/useTable'
 import { useForm } from '@/hooks/useForm'
-import { feedback } from '@/components/feedback'
+import { useFeedback } from '@/hooks/useFeedback'
 
 defineOptions({ name: 'ExampleTable' })
 
 const { t } = useI18n()
+const feedback = useFeedback()
 const showEdit = ref(false)
 const showDetail = ref(false)
 const current = ref<ExampleItem | null>(null)

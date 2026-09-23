@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { useI18n } from 'vue-i18n'
-import { feedback } from '@/components/feedback'
+import { useFeedback } from '@/hooks/useFeedback'
 
 const props = withDefaults(
   defineProps<{
@@ -10,6 +10,7 @@ const props = withDefaults(
 )
 
 const { t } = useI18n()
+const feedback = useFeedback()
 
 async function copy() {
   await navigator.clipboard.writeText(String(props.text))

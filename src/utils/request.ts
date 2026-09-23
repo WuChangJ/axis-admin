@@ -2,7 +2,7 @@ import axios, { type AxiosRequestConfig, type InternalAxiosRequestConfig } from 
 import { appConfig } from '@/config'
 import { extraCodeActions, getHttpI18nKey } from '@/config/http-code'
 import { i18n } from '@/locales'
-import { feedback } from '@/components/feedback'
+import { useFeedback } from '@/hooks/useFeedback'
 import { getToken } from '@/utils/auth'
 import type { ApiResponse, RequestOptions } from '@/types/http'
 
@@ -27,6 +27,8 @@ function t(key: string, fallback: string) {
   const value = (i18n.global as unknown as { t: (key: string) => string }).t(key)
   return value === key ? fallback : value
 }
+
+const feedback = useFeedback()
 
 /** 全局 axios 实例：统一 baseURL 与超时。 */
 const instance = axios.create({

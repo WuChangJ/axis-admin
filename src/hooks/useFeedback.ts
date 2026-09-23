@@ -3,34 +3,40 @@ import { i18n } from '@/locales'
 
 type I18nLike = { t: (key: string) => string }
 
-function t(key: string, fallback?: string) {
+/** 拦截器等非 setup 场景也能读文案，所以走 i18n.global 而不是 useI18n。 */
+function translate(key: string, fallback?: string) {
   const translated = (i18n.global as unknown as I18nLike).t(key)
   return translated === key ? (fallback ?? key) : translated
 }
 
-export const feedback = {
-  success(content: string) {
+export function useFeedback() {
+  function success(content: string) {
     MessagePlugin.success(content)
-  },
-  error(content: string) {
+  }
+
+  function error(content: string) {
     MessagePlugin.error(content)
-  },
-  warning(content: string) {
+  }
+
+  function warning(content: string) {
     MessagePlugin.warning(content)
-  },
-  info(content: string) {
+  }
+
+  function info(content: string) {
     MessagePlugin.info(content)
-  },
-  notify(title: string, content?: string) {
+  }
+
+  function notify(title: string, content?: string) {
     NotifyPlugin.info({ title, content })
-  },
-  confirm(content: string, title?: string) {
+  }
+
+  function confirm(content: string, title?: string) {
     return new Promise<boolean>((resolve) => {
       const dialog = DialogPlugin.confirm({
-        header: title ?? t('common.confirmTitle', 'Confirm'),
+        header: title ?? translate('common.confirmTitle', 'Confirm'),
         body: content,
-        confirmBtn: t('common.confirm', 'Confirm'),
-        cancelBtn: t('common.cancel', 'Cancel'),
+        confirmBtn: translate('common.confirm', 'Confirm'),
+        cancelBtn: translate('common.cancel', 'Cancel'),
         onConfirm: () => {
           dialog.destroy()
           resolve(true)
@@ -41,18 +47,21 @@ export const feedback = {
         },
       })
     })
-  },
-  alert(content: string, title?: string) {
+  }
+
+  function alert(content: string, title?: string) {
     return new Promise<void>((resolve) => {
       const dialog = DialogPlugin.alert({
-        header: title ?? t('common.tip', 'Tip'),
+        header: title ?? translate('common.tip', 'Tip'),
         body: content,
-        confirmBtn: t('common.confirm', 'Confirm'),
+        confirmBtn: translate('common.confirm', 'Confirm'),
         onConfirm: () => {
           dialog.destroy()
           resolve()
         },
       })
     })
-  },
+  }
+
+  return { success, error, warning, info, notify, confirm, alert }
 }

@@ -4,7 +4,7 @@ import { useRoute, useRouter } from 'vue-router'
 import { useI18n } from 'vue-i18n'
 import AppBrandLogo from '@/components/AppBrandLogo/index.vue'
 import { useUserStore } from '@/stores/user'
-import { feedback } from '@/components/feedback'
+import { useFeedback } from '@/hooks/useFeedback'
 
 defineOptions({ name: 'Login' })
 
@@ -12,6 +12,7 @@ const { t } = useI18n()
 const router = useRouter()
 const route = useRoute()
 const user = useUserStore()
+const feedback = useFeedback()
 
 const form = reactive({
   username: 'admin',

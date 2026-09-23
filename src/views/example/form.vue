@@ -12,11 +12,12 @@ import AppImagePreview from '@/components/AppImagePreview/index.vue'
 import DictSelect from '@/components/DictSelect/index.vue'
 import type { FormSchemaItem } from '@/components/AppForm/schema'
 import { useForm } from '@/hooks/useForm'
-import { feedback } from '@/components/feedback'
+import { useFeedback } from '@/hooks/useFeedback'
 
 defineOptions({ name: 'ExampleForm' })
 
 const { t } = useI18n()
+const feedback = useFeedback()
 const drawerVisible = ref(false)
 const previewVisible = ref(false)
 const files = ref<UploadFile[]>([])
