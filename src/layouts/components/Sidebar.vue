@@ -5,8 +5,8 @@ import { useI18n } from 'vue-i18n'
 import type { MenuValue } from 'tdesign-vue-next'
 import { usePermissionStore } from '@/stores/permission'
 import { useSettingsStore } from '@/stores/settings'
-import AppIcon from '@/components/AppIcon/index.vue'
 import AppBrandLogo from '@/components/AppBrandLogo/index.vue'
+import SidebarMenu from '@/layouts/components/SidebarMenu.vue'
 import type { AppMenu } from '@/router/helper'
 
 const route = useRoute()
@@ -31,7 +31,9 @@ function submenuPaths(items: AppMenu[], result = new Set<string>()) {
 
 function syncExpandedFromRoute() {
   const parents = submenuPaths(permission.menus)
-  const matched = route.matched.map((item) => item.path).filter((path) => parents.has(path))
+  const matched = [...parents].filter(
+    (path) => route.path === path || route.path.startsWith(`${path}/`),
+  )
   expanded.value = Array.from(new Set([...expanded.value, ...matched]))
 }
 
@@ -50,10 +52,6 @@ function onChange(value: MenuValue) {
   if (submenuPaths(permission.menus).has(path)) return
   void router.push(path)
 }
-
-function hasChildren(item: AppMenu) {
-  return Boolean(item.children?.length)
-}
 </script>
 
 <template>
@@ -70,31 +68,12 @@ function hasChildren(item: AppMenu) {
     <template #logo>
       <div class="sidebar-logo" :class="{ 'sidebar-logo--collapsed': settings.collapsed }">
         <AppBrandLogo class="sidebar-logo__img" size="32px" />
-        <span v-show="!settings.collapsed" class="sidebar-logo__name">{{ t('common.appName') }}</span>
+        <span v-show="!settings.collapsed" class="sidebar-logo__name">{{
+          t('common.appName')
+        }}</span>
       </div>
     </template>
-    <template v-for="item in permission.menus" :key="item.path">
-      <t-submenu v-if="hasChildren(item)" :value="item.path">
-        <template #icon>
-          <AppIcon v-if="item.icon" :name="item.icon" />
-        </template>
-        <template #title>{{ t(item.title) }}</template>
-        <t-menu-item
-          v-for="child in item.children"
-          :key="child.path"
-          :value="child.path"
-          :to="child.path"
-        >
-          {{ t(child.title) }}
-        </t-menu-item>
-      </t-submenu>
-      <t-menu-item v-else :value="item.path" :to="item.path">
-        <template #icon>
-          <AppIcon v-if="item.icon" :name="item.icon" />
-        </template>
-        {{ t(item.title) }}
-      </t-menu-item>
-    </template>
+    <SidebarMenu :items="permission.menus" show-icon />
   </t-menu>
 </template>
 

@@ -16,5 +16,21 @@
   "themeHint": "可在右上角设置中切换标准蓝 / 青绿 / 堇紫 / 琥珀，或自定义主色。",
   "themeLogin": "登录卡",
   "themeNav": "菜单与页签",
-  "themeControls": "表单控件"
+  "themeControls": "表单控件",
+  "pageContainerHint": "页面外壳。标题走 title 插槽；列表页把 scrollable 设为 false，只滚内部。",
+  "brandLogoHint": "品牌标识，颜色跟随当前主题色。",
+  "iconHint": "按名称渲染侧栏图标，未知名称使用默认图标。",
+  "emptyHint": "无数据占位，不传文案时使用通用空状态。",
+  "copyTextHint": "点击文本复制到剪贴板。",
+  "dictSelectHint": "可直接传选项，或用 loader 异步加载。",
+  "appFormHint": "按 schema 渲染输入、下拉、日期、开关和字典。",
+  "appSearchHint": "超过两项时可展开。查询和重置由页面自己处理。",
+  "appTableHint": "默认按剩余高度限制表体，行少时不撑满空白。",
+  "descriptionsHint": "用 items 展示只读字段。",
+  "treeHint": "可勾选的树。",
+  "uploadHint": "未配置上传地址时不会请求服务器。",
+  "modalHint": "弹窗挂到 body，避免被布局裁切。",
+  "drawerHint": "抽屉挂到 body，适合放较长的内容。",
+  "imagePreviewHint": "传入图片地址后打开预览。",
+  "searchResult": "当前查询"
 }

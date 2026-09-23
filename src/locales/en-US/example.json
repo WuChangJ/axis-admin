@@ -16,5 +16,21 @@
   "themeHint": "Switch standard blue, teal, violet, amber, or a custom brand color in Settings.",
   "themeLogin": "Login card",
   "themeNav": "Menu and tags",
-  "themeControls": "Form controls"
+  "themeControls": "Form controls",
+  "pageContainerHint": "Page shell. The title slot renders the heading. List pages set scrollable to false.",
+  "brandLogoHint": "Brand mark. Color follows the current theme.",
+  "iconHint": "Renders a sidebar icon by name. Unknown names use the fallback icon.",
+  "emptyHint": "Empty placeholder. Falls back to the shared empty text.",
+  "copyTextHint": "Click the text to copy it.",
+  "dictSelectHint": "Pass options directly, or load them with loader.",
+  "appFormHint": "Renders input, select, date, switch, and dict fields from a schema.",
+  "appSearchHint": "Extra fields can be expanded. Search and reset stay in the page.",
+  "appTableHint": "The body is capped by the remaining height and does not stretch when there are few rows.",
+  "descriptionsHint": "Read-only fields from items.",
+  "treeHint": "A checkable tree.",
+  "uploadHint": "Without an upload URL, nothing is sent to a server.",
+  "modalHint": "The dialog attaches to body so the layout does not clip it.",
+  "drawerHint": "The drawer attaches to body and fits longer content.",
+  "imagePreviewHint": "Opens a preview for the given image URLs.",
+  "searchResult": "Current query"
 }
