@@ -12,5 +12,9 @@
   "disabled": "停用",
   "formHint": "Form / Descriptions / Tree / Upload / DictSelect 用法示例。",
   "treeTitle": "示例树",
-  "uploadHint": "选择文件后不会真正上传到服务器。"
+  "uploadHint": "选择文件后不会真正上传到服务器。",
+  "themeHint": "可在右上角设置中切换标准蓝 / 青绿 / 堇紫 / 琥珀，或自定义主色。",
+  "themeLogin": "登录卡",
+  "themeNav": "菜单与页签",
+  "themeControls": "表单控件"
 }

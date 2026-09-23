@@ -1,0 +1,90 @@
+:root,
+:root[theme-mode='light'] {
+  --td-brand-color-1: #e8f0fe;
+  --td-brand-color-2: #d4e3fc;
+  --td-brand-color-3: #a9c4f7;
+  --td-brand-color-4: #7aa3f2;
+  --td-brand-color-5: #5488ec;
+  --td-brand-color-6: #3d7cf0;
+  --td-brand-color-7: #2b6de5;
+  --td-brand-color-8: #1f5ad1;
+  --td-brand-color-9: #1848a8;
+  --td-brand-color-10: #123580;
+
+  --td-warning-color-5: #d47b24;
+  --td-error-color-6: #c94a43;
+  --td-success-color-5: #2a9a6c;
+
+  --td-bg-color-page: #f4f6fa;
+  --td-bg-color-container: #ffffff;
+  --td-text-color-primary: #1a1d24;
+  --td-text-color-secondary: #646a73;
+  --td-component-stroke: #e6e8ee;
+  --td-border-level-1-color: #e6e8ee;
+  --td-component-border: #dfe2ea;
+  --td-shadow-1: 0 1px 2px rgba(26, 29, 36, 0.04);
+  --admin-shadow-card: 0 1px 2px rgba(26, 29, 36, 0.04);
+  --admin-table-header: #f7f8fb;
+  --admin-table-hover: #f5f8ff;
+}
+
+:root.dark,
+:root[theme-mode='dark'] {
+  --td-brand-color-1: #1a2740;
+  --td-brand-color-2: #1e3260;
+  --td-brand-color-3: #24407a;
+  --td-brand-color-4: #2b5199;
+  --td-brand-color-5: #3363b8;
+  --td-brand-color-6: #2b6de5;
+  --td-brand-color-7: #3d7cf0;
+  --td-brand-color-8: #5b91f4;
+  --td-brand-color-9: #84aef8;
+  --td-brand-color-10: #b7cffc;
+
+  --td-bg-color-page: #0f1218;
+  --td-bg-color-container: #1a1f2a;
+  --td-brand-color: #3d7cf0;
+  --td-brand-color-hover: #5b91f4;
+  --td-brand-color-active: #2b6de5;
+  --td-text-color-primary: rgba(255, 255, 255, 0.9);
+  --td-text-color-secondary: rgba(255, 255, 255, 0.55);
+  --td-component-stroke: #2a3140;
+  --td-border-level-1-color: #2a3140;
+  --td-component-border: #3a4254;
+  --td-shadow-1: 0 1px 2px rgba(0, 0, 0, 0.28);
+  --admin-shadow-card: 0 1px 2px rgba(0, 0, 0, 0.28);
+  --admin-table-header: #151a24;
+  --admin-table-hover: #1e2a40;
+}
+
+:root {
+  --td-radius-small: 4px;
+  --td-radius-default: 8px;
+  --td-radius-medium: 10px;
+  --td-radius-large: 14px;
+  --td-radius-extraLarge: 16px;
+  --td-font-family: Inter, 'PingFang SC', 'Microsoft YaHei', sans-serif;
+}
+
+.t-card {
+  border-radius: var(--td-radius-medium);
+  border: 1px solid var(--td-component-stroke);
+  box-shadow: var(--admin-shadow-card);
+}
+
+.t-table thead th {
+  background-color: var(--admin-table-header) !important;
+}
+
+.t-table tbody tr:hover > td {
+  background-color: var(--admin-table-hover) !important;
+}
+
+.t-menu__item.t-is-active:not(.t-is-opened) {
+  background-color: var(--td-brand-color-1);
+  color: var(--td-brand-color);
+}
+
+.t-menu__item.t-is-active:not(.t-is-opened) .t-icon {
+  color: var(--td-brand-color);
+}

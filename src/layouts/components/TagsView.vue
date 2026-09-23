@@ -47,6 +47,7 @@ function refresh() {
         :theme="item.path === route.path ? 'primary' : 'default'"
         :closable="!item.affix"
         variant="light"
+        shape="square"
         class="tags-view__item"
         @click="onSelect(item.path)"
         @close="onClose(item.path)"
@@ -92,5 +93,6 @@ function refresh() {
 
 .tags-view__item {
   cursor: pointer;
+  border-radius: 4px !important;
 }
 </style>

@@ -12,5 +12,9 @@
   "disabled": "Disabled",
   "formHint": "Demo of Form / Descriptions / Tree / Upload / DictSelect.",
   "treeTitle": "Sample tree",
-  "uploadHint": "Files are not uploaded to a real server."
+  "uploadHint": "Files are not uploaded to a real server.",
+  "themeHint": "Switch standard blue, teal, violet, amber, or a custom brand color in Settings.",
+  "themeLogin": "Login card",
+  "themeNav": "Menu and tags",
+  "themeControls": "Form controls"
 }

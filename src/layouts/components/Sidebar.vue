@@ -5,8 +5,8 @@ import { useI18n } from 'vue-i18n'
 import type { MenuValue } from 'tdesign-vue-next'
 import { usePermissionStore } from '@/stores/permission'
 import { useSettingsStore } from '@/stores/settings'
-import { appConfig } from '@/config'
 import AppIcon from '@/components/AppIcon/index.vue'
+import AppBrandLogo from '@/components/AppBrandLogo/index.vue'
 import type { AppMenu } from '@/router/helper'
 
 const route = useRoute()
@@ -15,6 +15,7 @@ const { t } = useI18n()
 const permission = usePermissionStore()
 const settings = useSettingsStore()
 
+const menuTheme = computed(() => (settings.darkMode ? 'dark' : 'light'))
 const active = computed(() => route.path)
 const expanded = ref<MenuValue[]>([])
 
@@ -61,14 +62,14 @@ function hasChildren(item: AppMenu) {
     :expanded="expanded"
     :collapsed="settings.collapsed"
     expand-type="normal"
-    theme="light"
+    :theme="menuTheme"
     :width="settings.collapsed ? 64 : 220"
     @change="onChange"
     @expand="onExpand"
   >
     <template #logo>
       <div class="sidebar-logo" :class="{ 'sidebar-logo--collapsed': settings.collapsed }">
-        <img class="sidebar-logo__img" :src="appConfig.logo" alt="" />
+        <AppBrandLogo class="sidebar-logo__img" size="32px" />
         <span v-show="!settings.collapsed" class="sidebar-logo__name">{{ t('common.appName') }}</span>
       </div>
     </template>
@@ -123,5 +124,6 @@ function hasChildren(item: AppMenu) {
 .sidebar-logo__name {
   overflow: hidden;
   text-overflow: ellipsis;
+  color: var(--td-text-color-primary);
 }
 </style>

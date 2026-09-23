@@ -2,6 +2,7 @@
 import { reactive } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import { useI18n } from 'vue-i18n'
+import AppBrandLogo from '@/components/AppBrandLogo/index.vue'
 import { useUserStore } from '@/stores/user'
 import { feedback } from '@/components/feedback'
 
@@ -35,7 +36,11 @@ async function onSubmit() {
 
 <template>
   <div class="login-page">
-    <t-card class="login-page__card" :title="t('common.appName')">
+    <t-card class="login-page__card">
+      <div class="login-page__brand">
+        <AppBrandLogo size="36px" />
+        <h1>{{ t('common.appName') }}</h1>
+      </div>
       <t-form :data="form">
         <t-form-item name="username" :label="t('common.username')">
           <t-input v-model="form.username" />
@@ -64,5 +69,27 @@ async function onSubmit() {
 
 .login-page__card {
   width: 400px;
+  border-radius: var(--td-radius-large);
+  box-shadow: var(--admin-shadow-card);
+}
+
+.login-page__brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.login-page__brand img,
+.login-page__brand :deep(.app-brand-logo) {
+  width: 36px;
+  height: 36px;
+}
+
+.login-page__brand h1 {
+  margin: 0;
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--td-text-color-primary);
 }
 </style>

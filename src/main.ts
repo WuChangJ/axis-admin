@@ -11,6 +11,7 @@ import { onUnauthorized } from './utils/request'
 
 import 'tdesign-vue-next/es/style/index.css'
 import './styles/index.scss'
+import './styles/theme.scss'
 
 const app = createApp(App)
 const pinia = createPinia()
@@ -21,6 +22,7 @@ app.use(i18n)
 
 const settings = useSettingsStore()
 settings.applyLocale()
+settings.applyTheme()
 
 const session = useSessionStore()
 onUnauthorized(() => session.logoutAndRedirect())

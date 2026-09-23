@@ -32,6 +32,12 @@ export const staticRoutes: RouteRecordRaw[] = [
         component: () => import('@/views/example/form.vue'),
         meta: { title: 'menu.exampleForm' },
       },
+      {
+        path: 'theme',
+        name: 'ExampleTheme',
+        component: () => import('@/views/example/theme.vue'),
+        meta: { title: 'menu.exampleTheme' },
+      },
     ],
   },
   {

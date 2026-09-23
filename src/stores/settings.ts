@@ -2,19 +2,35 @@ import { defineStore } from 'pinia'
 import { computed, ref, watch } from 'vue'
 import { appConfig, type AppLocale } from '@/config'
 import { i18n, setLocale } from '@/locales'
+import {
+  applyBrandTheme,
+  DEFAULT_BRAND,
+  isThemePreset,
+  normalizeHex,
+  resolveBrandHex,
+  type ThemePreset,
+} from '@/styles/brand'
 
 interface PersistedSettings {
   locale: AppLocale
   collapsed: boolean
   showTags: boolean
   darkMode: boolean
+  themePreset: ThemePreset
+  customBrand: string
 }
 
 function readSettings(): PersistedSettings {
   try {
     const raw = localStorage.getItem(appConfig.settingsKey)
     if (raw) {
-      return { ...defaultSettings(), ...JSON.parse(raw) }
+      const parsed = JSON.parse(raw) as Partial<PersistedSettings>
+      return {
+        ...defaultSettings(),
+        ...parsed,
+        themePreset: isThemePreset(parsed.themePreset) ? parsed.themePreset : 'blue',
+        customBrand: parsed.customBrand ? normalizeHex(parsed.customBrand) : DEFAULT_BRAND,
+      }
     }
   } catch {
     /* ignore */
@@ -29,14 +45,19 @@ function defaultSettings(): PersistedSettings {
     collapsed: false,
     showTags: true,
     darkMode: false,
+    themePreset: 'blue',
+    customBrand: DEFAULT_BRAND,
   }
 }
 
 export const useSettingsStore = defineStore('settings', () => {
-  const locale = ref<AppLocale>(readSettings().locale)
-  const collapsed = ref(readSettings().collapsed)
-  const showTags = ref(readSettings().showTags)
-  const darkMode = ref(readSettings().darkMode)
+  const initial = readSettings()
+  const locale = ref<AppLocale>(initial.locale)
+  const collapsed = ref(initial.collapsed)
+  const showTags = ref(initial.showTags)
+  const darkMode = ref(initial.darkMode)
+  const themePreset = ref<ThemePreset>(initial.themePreset)
+  const customBrand = ref(initial.customBrand)
   const settingsVisible = ref(false)
 
   const persist = computed<PersistedSettings>(() => ({
@@ -44,7 +65,11 @@ export const useSettingsStore = defineStore('settings', () => {
     collapsed: collapsed.value,
     showTags: showTags.value,
     darkMode: darkMode.value,
+    themePreset: themePreset.value,
+    customBrand: customBrand.value,
   }))
+
+  const brandHex = computed(() => resolveBrandHex(themePreset.value, customBrand.value))
 
   watch(
     persist,
@@ -62,6 +87,14 @@ export const useSettingsStore = defineStore('settings', () => {
     { immediate: true },
   )
 
+  watch(
+    [brandHex, darkMode],
+    ([hex, dark]) => {
+      applyBrandTheme(hex, dark)
+    },
+    { immediate: true },
+  )
+
   function changeLocale(next: AppLocale) {
     locale.value = next
     setLocale(next)
@@ -72,13 +105,32 @@ export const useSettingsStore = defineStore('settings', () => {
     document.documentElement.lang = locale.value
   }
 
+  function applyTheme() {
+    applyBrandTheme(brandHex.value, darkMode.value)
+  }
+
+  function setPreset(preset: ThemePreset) {
+    themePreset.value = preset
+  }
+
+  function setCustomBrand(hex: string) {
+    customBrand.value = normalizeHex(hex)
+    themePreset.value = 'custom'
+  }
+
   return {
     locale,
     collapsed,
     showTags,
     darkMode,
+    themePreset,
+    customBrand,
+    brandHex,
     settingsVisible,
     changeLocale,
     applyLocale,
+    applyTheme,
+    setPreset,
+    setCustomBrand,
   }
 })

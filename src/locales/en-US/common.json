@@ -31,6 +31,12 @@
   "darkMode": "Dark mode",
   "showTags": "Show tabs",
   "collapseSidebar": "Collapse sidebar",
+  "themeColor": "Theme color",
+  "themeCustom": "Custom color",
+  "themeBlue": "Standard blue",
+  "themeTeal": "Teal",
+  "themeViolet": "Violet",
+  "themeAmber": "Amber",
   "pageNotFound": "Page not found",
   "backHome": "Back to home",
   "welcome": "Admin architecture scaffold"

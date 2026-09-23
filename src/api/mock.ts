@@ -45,6 +45,12 @@ export const mockMenus: MenuRecord[] = [
         component: 'example/form',
         meta: { title: 'menu.exampleForm' },
       },
+      {
+        path: 'theme',
+        name: 'ExampleTheme',
+        component: 'example/theme',
+        meta: { title: 'menu.exampleTheme' },
+      },
     ],
   },
   {

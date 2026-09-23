@@ -55,7 +55,9 @@ const displaySchema = computed(() =>
   padding: 16px 16px 0;
   margin-bottom: 12px;
   background: var(--td-bg-color-container);
-  border-radius: 6px;
+  border: 1px solid var(--td-component-stroke);
+  border-radius: var(--td-radius-medium);
+  box-shadow: var(--admin-shadow-card);
   flex-shrink: 0;
 }
 </style>

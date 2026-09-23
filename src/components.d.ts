@@ -12,6 +12,7 @@ export {}
 /* prettier-ignore */
 declare module 'vue' {
   export interface GlobalComponents {
+    AppBrandLogo: typeof import('./components/AppBrandLogo/index.vue')['default']
     AppDescriptions: typeof import('./components/AppDescriptions/index.vue')['default']
     AppDrawer: typeof import('./components/AppDrawer/index.vue')['default']
     AppEmpty: typeof import('./components/AppEmpty/index.vue')['default']
@@ -67,6 +68,7 @@ declare module 'vue' {
 
 // For TSX support
 declare global {
+  const AppBrandLogo: typeof import('./components/AppBrandLogo/index.vue')['default']
   const AppDescriptions: typeof import('./components/AppDescriptions/index.vue')['default']
   const AppDrawer: typeof import('./components/AppDrawer/index.vue')['default']
   const AppEmpty: typeof import('./components/AppEmpty/index.vue')['default']
